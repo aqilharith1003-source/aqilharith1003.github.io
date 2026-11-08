@@ -1,68 +1,118 @@
-/* 1. VARIABLES: tukar warna/font di sini sekali, semua tempat ikut */
+/* 1. VARIABLES: change colours here and the whole site follows */
 :root {
-  --bg: #f2f4f7;
-  --ink: #14213d;
-  --muted: #5b6577;
-  --line: #d9dee6;
-  --accent: #2f4bff;
+  --bg: #f6f7fc;
+  --ink: #1c2340;
+  --muted: #5d6584;
+  --line: #e2e6f3;
   --panel: #ffffff;
+
+  --accent: #4f46e5;        /* indigo: main colour */
+  --accent-soft: #eceafd;
+  --teal: #0d9488;
+  --teal-soft: #dff5f2;
+  --amber: #f59e0b;
+  --amber-soft: #fef3c7;
+  --pink: #e11d74;
+  --blue: #2563eb;
+
   --head: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
   --body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 }
 
-/* Mode gelap automatik ikut tetapan peranti */
-@media (prefers-color-scheme: dark) {
-  :root { --bg: #101624; --ink: #e8ecf5; --muted: #9aa5ba; --line: #26304a; --accent: #7f93ff; --panel: #172036; }
+/* 2. BASICS */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #eceeff 0, var(--bg) 420px) no-repeat, var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
 }
-
-/* 2. ASAS */
-*, *::before, *::after { box-sizing: border-box; } /* width termasuk padding & border */
-html { scroll-behavior: smooth; }                  /* klik menu = skrol lembut */
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.65; }
+body::before {               /* thin colour stripe at the top of the page */
+  content: "";
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), var(--teal), var(--amber));
+}
 a { color: var(--accent); }
-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; } /* untuk pengguna keyboard */
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-/* 3. LAYOUT: CSS Grid, 2 lajur (sidebar | kandungan) */
+/* 3. LAYOUT: sidebar | content */
 .layout { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-.side { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; padding: 2.5rem 2rem 2rem 0; display: flex; flex-direction: column; }
+.side { position: sticky; top: 0; align-self: start; height: calc(100vh - 6px); overflow-y: auto; padding: 2.5rem 2rem 2rem 0; display: flex; flex-direction: column; }
 .main { padding: 4rem 0 3rem 2rem; max-width: 46rem; }
 
-/* 4. SIDEBAR */
-.logo { width: 200px; height: auto; margin-bottom: 1.5rem; } /* height:auto = nisbah logo kekal */
-.name { font-family: var(--head); font-weight: 800; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 1rem; }
+/* 4. SIDEBAR (keep the logo on a light background, as the guide says not to change its colours) */
+.logo { width: 200px; height: auto; margin-bottom: 1.5rem; }
+.name {
+  font-family: var(--head); font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 4rem); line-height: 0.95; letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  color: var(--accent);                                   /* fallback */
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .role { margin: 0 0 2rem; color: var(--muted); }
 .nav { display: flex; flex-direction: column; gap: 0.4rem; }
-.nav a { color: var(--ink); text-decoration: none; font-weight: 600; padding: 0.2rem 0 0.2rem 0.9rem; border-left: 3px solid var(--line); }
-.nav a:hover { border-left-color: var(--accent); color: var(--accent); }
+.nav a { color: var(--ink); text-decoration: none; font-weight: 600; padding: 0.25rem 0 0.25rem 0.9rem; border-left: 3px solid var(--line); }
+.nav a:hover { border-left-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .gh { margin-top: auto; padding-top: 1.5rem; font-weight: 600; word-break: break-all; }
 
-/* 5. KANDUNGAN */
+/* 5. CONTENT */
 section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
-h2 { font-family: var(--head); font-size: 1.75rem; letter-spacing: -0.01em; margin: 0 0 1rem; }
+h2 { font-family: var(--head); font-size: 1.75rem; letter-spacing: -0.01em; margin: 0 0 1.25rem; }
+h2::after {                  /* small colour bar under every section title */
+  content: ""; display: block; width: 56px; height: 5px; margin-top: 0.5rem; border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--teal));
+}
 h3 { font-family: var(--head); font-size: 1.2rem; margin: 1.5rem 0 0.4rem; }
-h4 { font-family: var(--head); font-size: 1rem; margin: 1.25rem 0 0.4rem; }
+h4 { font-family: var(--head); font-size: 1rem; margin: 1.25rem 0 0.4rem; color: var(--accent); }
 
-.avatar { border-radius: 50%; object-fit: cover; border: 3px solid var(--line); margin-bottom: 1rem; }
+.avatar { width: 220px; height: 220px; object-fit: cover; object-position: center top; margin-bottom: 1rem; }
 .headline { font-family: var(--head); font-size: 1.3rem; font-weight: 600; }
-.facts, .artifact dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.25rem; margin: 1rem 0; }
-.facts dt, .artifact dt { font-weight: 600; }
-.facts dd, .artifact dd { margin: 0; }
 
-.chips, .links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.chips li { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 0.3rem 1rem; font-weight: 600; }
-.links { gap: 0.5rem 1.5rem; font-weight: 600; }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1.5rem; margin: 1.25rem 0; padding: 1.1rem 1.4rem; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.facts dt { font-weight: 600; color: var(--accent); }
+.facts dd { margin: 0; }
 
-.journey { padding-left: 1.2rem; }
-.journey li { margin-bottom: 0.5rem; }
+/* skill chips, three soft colours in rotation */
+.chips { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.chips li { background: var(--accent-soft); color: #4338ca; border-radius: 999px; padding: 0.3rem 1rem; font-weight: 600; }
+.chips li:nth-child(3n+2) { background: var(--teal-soft); color: #0f766e; }
+.chips li:nth-child(3n+3) { background: var(--amber-soft); color: #92400e; }
 
-.artifact { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 1rem 1.5rem 1.25rem; margin-bottom: 1.5rem; }
+/* profile links as buttons */
+.links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0 0; }
+.links a { background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; padding: 0.45rem 1.1rem; border-radius: 999px; }
+.links a:hover { background: #4338ca; }
+
+/* learning journey: simple vertical line with dots */
+.journey { list-style: none; margin: 1rem 0 0; padding: 0 0 0 1.4rem; border-left: 3px solid var(--line); }
+.journey li { position: relative; margin-bottom: 0.8rem; }
+.journey li::before { content: ""; position: absolute; left: calc(-1.4rem - 7px); top: 0.55em; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+.journey strong { color: var(--accent); }
+
+/* artifact cards, each with its own colour */
+.artifact { background: var(--panel); border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 10px; padding: 1rem 1.5rem 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(28, 35, 64, 0.06); }
 .artifact h3 { margin-top: 0.5rem; }
+.artifact dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1.25rem; margin: 0.5rem 0 0; }
+.artifact dt { font-weight: 600; }
+.artifact dd { margin: 0; }
 .evidence { padding-left: 1.2rem; }
+#figma { border-left-color: var(--accent); }
+#talk  { border-left-color: var(--teal); }
+#visit { border-left-color: var(--amber); }
+#video { border-left-color: var(--pink); }
+#other { border-left-color: var(--blue); }
+.shot { max-width: 100%; height: auto; border-radius: 6px; margin: 0.5rem 0; }
 
-.todo { border-bottom: 1px dashed var(--accent); color: var(--muted); } /* penanda tempat isi: cari & ganti */
+.todo { background: var(--amber-soft); border-radius: 3px; }   /* highlights what is still empty; disappears when you remove the span */
 .foot { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 1.25rem; }
 
-/* 6. RESPONSIVE: skrin <= 800px, sidebar jadi atas */
+/* 6. RESPONSIVE: screens 800px and below */
 @media (max-width: 800px) {
   .layout { grid-template-columns: 1fr; }
   .side { position: static; height: auto; padding: 2rem 0 0; }
