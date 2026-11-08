@@ -71,7 +71,7 @@ h2::after {                  /* small colour bar under every section title */
 h3 { font-family: var(--head); font-size: 1.2rem; margin: 1.5rem 0 0.4rem; }
 h4 { font-family: var(--head); font-size: 1rem; margin: 1.25rem 0 0.4rem; color: var(--accent); }
 
-avatar { border-radius: 50%; object-fit: cover; border: 3px solid var(--line); margin-bottom: 1rem; }
+.avatar { border-radius: 50%; object-fit: cover; border: 3px solid var(--line); margin-bottom: 1rem; }
 .headline { font-family: var(--head); font-size: 1.3rem; font-weight: 600; }
 .facts, .artifact dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.25rem; margin: 1rem 0; }
 .facts dt, .artifact dt { font-weight: 600; }
